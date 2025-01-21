@@ -1,3 +1,5 @@
+const { version } = require("chai")
+
 require("@nomiclabs/hardhat-waffle")
 require("hardhat-gas-reporter")
 require("@nomiclabs/hardhat-etherscan")
@@ -19,7 +21,7 @@ const PRIVATE_KEY =
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
 
 module.exports = {
-    defaultNetwork: "hardhat",
+    defaultNetwork: "sepolia",
     networks: {
         hardhat: {
             chainId: 31337,
@@ -29,6 +31,7 @@ module.exports = {
         },
         localhost: {
             chainId: 31337,
+            
         },
         goerli: {
             url: GOERLI_RPC_URL,
@@ -36,6 +39,13 @@ module.exports = {
             chainId: 5,
             blockConfirmations: 6,
         },
+        sepolia : {
+            url : process.env.ENDPOINT,
+            accounts :[ process.env.PRIVATE_KEY],
+            chainId: 11155111,
+            blockConfirmations : 1
+
+          }
     },
     solidity: {
         compilers: [
@@ -44,10 +54,13 @@ module.exports = {
             },
             {
                 version: "0.6.12",
+            },{
+                version: "0.6.0",
             },
             {
                 version: "0.4.19",
             },
+            
         ],
     },
     etherscan: {
